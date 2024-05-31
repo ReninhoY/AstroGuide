@@ -21,10 +21,9 @@ else {
 }
 */
 
-$parametro = $_POST['nome'];
-
-if ($parametro == $_POST['nome']) {
-    echo "Rosana";
+if ($_POST) {
+    $parametros = $_POST['nome'];
+    echo "$parametros";
 }
 /*
 $email = $_POST['email'];
