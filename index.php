@@ -15,9 +15,11 @@ echo "aaaaaaa";
 if (!$conectar) {
     die ("erro ".mysqli_connect_error());
 }
+    /*
 else {
     echo "FOI";
 }
+*/
 
 $parametro = $_POST['nome'];
 
