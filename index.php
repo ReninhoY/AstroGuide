@@ -18,8 +18,13 @@ if (!$conectar) {
 else {
     echo "FOI";
 }
+
+$parametro = $_POST['nome'];
+
+if ($parametro == $_POST['nome']) {
+    echo "Rosana";
+}
 /*
-$nome = $_POST['nome'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 $dataNascimento = $_POST['dataNascimento'];
