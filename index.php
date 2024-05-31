@@ -30,14 +30,15 @@ if ($_POST) {
     $sql2 = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,
     Ft_Perfil,Total_Pontuacao,Dt_Cadastro,Id_Astro) VALUES
     ('$nome','$email','$senha','2000-05-05',1,100,'2024-05-31',1)";
-    if ($query = mysqli_query($conectar,$sql1)) {
+    $query = mysqli_query($conectar,$sql1)
+    if ($query) {
         echo "inserido1";
     }
     else {
         echo "naoInserido1";
     }
-
-    if ($query2 = mysqli_query($conectar,$sql2)) {
+$query2 = mysqli_query($conectar,$sql2)
+    if ($query2) {
         echo "inserido2";
     }
     else {
