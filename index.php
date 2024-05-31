@@ -7,8 +7,9 @@ $host = "roundhouse.proxy.rlwy.net";
 $user = "root";
 $pass = "lYsmqQEDuzaIiBMdOSFOniKtKzSpIIHd";
 $bd = "railway";
+$porta = "58673";
 echo "bbbbbbbb";
-$conectar = @mysqli_connect($host,$user,$pass,$bd);
+$conectar = @mysqli_connect($host,$user,$pass,$bd,$porta);
 echo "aaaaaaa";
 
 if (!$conectar) {
