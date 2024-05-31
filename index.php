@@ -8,9 +8,7 @@ $user = "root";
 $pass = "lYsmqQEDuzaIiBMdOSFOniKtKzSpIIHd";
 $bd = "railway";
 $porta = "58673";
-echo "bbbbbbbb";
 $conectar = @mysqli_connect($host,$user,$pass,$bd,$porta);
-echo "aaaaaaa";
 
 if (!$conectar) {
     die ("erro ".mysqli_connect_error());
@@ -22,8 +20,12 @@ else {
 */
 
 if ($_POST) {
-    $parametros = $_POST['nome'];
-    echo "$parametros";
+    $parametros = $_POST['data'];
+    $parametrosDivididos = explode("#", $parametros);
+    $nome = $parametrosDivididos[0];
+    $email = $parametrosDivididos[1];
+    $senha = $parametrosDivididos[2];
+    echo "var nome $nome e var email $email e var senha $senha";
 }
 /*
 $email = $_POST['email'];
