@@ -26,8 +26,8 @@ if ($_POST) {
     $email = $parametrosDivididos[1];
     $senha = $parametrosDivididos[2];
     echo "var nome $nome e var email $email e var senha $senha";
-    $sql1 = "INSERT INTO Astro VALUES('Marte')";
-    $sql2 = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,
+    $sql1 = "INSERT INTO Astro VALUES(1,'Marte')";
+    $sql2 = "INSERT INTO Usuario(1,Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,
     Ft_Perfil,Total_Pontuacao,Dt_Cadastro,Id_Astro) VALUES
     ('$nome','$email','$senha','2000-05-05',1,100,'2024-05-31',1)";
     $query = mysqli_query($conectar,$sql1);
