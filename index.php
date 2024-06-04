@@ -26,6 +26,7 @@ if ($_POST) {
     $email = $parametrosDivididos[1];
     $senha = $parametrosDivididos[2];
     echo "var nome $nome e var email $email e var senha $senha";
+    /*
     $sql2 = "INSERT INTO Usuario(Id_Usuario,Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Ft_Perfil,Total_Pontuacao,Dt_Cadastro,Id_Astro) VALUES (1,'$nome','$email','$senha','2000-05-05',1,100,'2024-05-31',1)";
     $query2 = mysqli_query($conectar,$sql2);
     if ($query2) {
@@ -33,7 +34,7 @@ if ($_POST) {
     }
     else {
         echo "naoInserido2";
-    }
+    }*/
 }
 /*
 $email = $_POST['email'];
