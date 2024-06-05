@@ -31,7 +31,7 @@ if (isset($_POST['cadastro'])) {
     
     $sql = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Dt_Cadastro,Ft_Perfil,Total_Pontuacao,Id_Astro) VALUES ('$nome','$email','$senha','$dataNasc','$dataAtual','$imgPerfil',0,1)";
     $query = mysqli_query($conectar,$sql);
-    if ($query2) {
+    if ($query) {
         echo "inserido";
     }
     else {
