@@ -19,22 +19,24 @@ else {
 }
 */
 
-if ($_POST) {
-    $parametros = $_POST['data'];
-    $parametrosDivididos = explode("#", $parametros);
+if (isset($_POST['cadastro'])) {
+    $parametros = $_POST['cadastro'];
+    $parametrosDivididos = explode("#|#", $parametros);
     $nome = $parametrosDivididos[0];
     $email = $parametrosDivididos[1];
     $senha = $parametrosDivididos[2];
-    echo "var nome $nome e var email $email e var senha $senha";
-    /*
-    $sql2 = "INSERT INTO Usuario(Id_Usuario,Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Ft_Perfil,Total_Pontuacao,Dt_Cadastro,Id_Astro) VALUES (1,'$nome','$email','$senha','2000-05-05',1,100,'2024-05-31',1)";
-    $query2 = mysqli_query($conectar,$sql2);
+    $dataNasc = $parametrosDivididos[3];
+    $dataAtual = $parametrosDivididos[4];
+    $imgPerfil = $parametrosDivididos[5];
+    
+    $sql = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Dt_Cadastro,Ft_Perfil,Total_Pontuacao,Id_Astro) VALUES ('$nome','$email','$senha','$dataNasc','$dataAtual','$imgPerfil',0,1)";
+    $query = mysqli_query($conectar,$sql);
     if ($query2) {
-        echo "inserido2";
+        echo "inserido";
     }
     else {
-        echo "naoInserido2";
-    }*/
+        echo "naoInserido";
+    }
 }
 /*
 $email = $_POST['email'];
