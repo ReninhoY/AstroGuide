@@ -50,7 +50,7 @@ if (isset($_POST['login'])) {
     if ($verificarInjection) {
         $verificarInjection->bind_param("ss", $email, $senha);
         $verificarInjection->execute();
-        $resultado = $stmt->get_result();
+        $resultado = $verificarInjection->get_result();
         if ($resultado->num_rows > 0) {
             echo "logado";
         } else {
