@@ -46,7 +46,7 @@ if (isset($_POST['login'])) {
     $senha = $parametrosDivididos[1];
 
     $sql = "SELECT * FROM Usuario WHERE Email_Responsavel = '$email' AND Senha = '$senha' ";
-    $verificarInjection = $mysqli->prepare($sql);
+    $verificarInjection = mysqli->prepare($sql);
     if ($verificarInjection) {
         $verificarInjection->bind_param("ss", $email, $senha);
         $verificarInjection->execute();
