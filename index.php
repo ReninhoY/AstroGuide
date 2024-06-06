@@ -38,6 +38,29 @@ if (isset($_POST['cadastro'])) {
         echo "naoInserido";
     }
 }
+
+if (isset($_POST['login'])) {
+    $parametros = $_POST['login'];
+    $parametrosDivididos = explode("#|#", $parametros);
+    $email = $parametrosDivididos[0];
+    $senha = $parametrosDivididos[1];
+
+    $sql = "SELECT * FROM Usuario WHERE Email_Responsavel = '$email' AND Senha = '$senha' ";
+    $verificarInjection = $mysqli->prepare($sql);
+    if ($verificarInjection) {
+        $verificarInjection->bind_param("ss", $email, $senha);
+        $verificarInjection->execute();
+        $resultado = $stmt->get_result();
+        if ($resultado->num_rows > 0) {
+            echo "logado";
+        } else {
+            echo "senha invalida";
+        }
+        $verificarInjection->close();
+    } else {
+        echo "erro para verificar injecao";
+    }
+    
 /*
 $email = $_POST['email'];
 $senha = $_POST['senha'];
