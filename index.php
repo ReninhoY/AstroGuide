@@ -60,6 +60,7 @@ if (isset($_POST['login'])) {
     } else {
         echo "erro para verificar injecao";
     }
+}
     
 /*
 $email = $_POST['email'];
