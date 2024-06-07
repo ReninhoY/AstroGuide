@@ -28,15 +28,31 @@ if (isset($_POST['cadastro'])) {
     $dataNasc = $parametrosDivididos[3];
     $dataAtual = $parametrosDivididos[4];
     $imgPerfil = $parametrosDivididos[5];
+
+    $sqlVerificarDuplicacaoEmail = "SELECT * FROM Usuario WHERE Email_Responsavel = ?";
+    $verificarInjection = $conectar->prepare($sqlVerificarDuplicacaoEmail);
     
-    $sql = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Dt_Cadastro,Ft_Perfil,Total_Pontuacao,Id_Astro) VALUES ('$nome','$email','$senha','$dataNasc','$dataAtual','$imgPerfil',0,1)";
-    $query = mysqli_query($conectar,$sql);
-    if ($query) {
-        echo "inserido";
+    if ($verificarInjection) {
+        $verificarInjection->bind_param("s", $email);
+        $verificarInjection->execute();
+        $resultado = $verificarInjection->get_result();
+        if ($resultado->num_rows > 1) {
+            echo "email duplicado";
+        } else {
+            $sql = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Dt_Cadastro,Ft_Perfil,Total_Pontuacao,Id_Astro) VALUES ('$nome','$email','$senha','$dataNasc','$dataAtual','$imgPerfil',0,1)";
+            $query = mysqli_query($conectar,$sql);
+            if ($query) {
+                echo "inserido";
+            }
+            else {
+                echo "naoInserido";
+            }
+        }
+        $verificarInjection->close();
+    } else {
+        echo "erro para verificar injecao";
     }
-    else {
-        echo "naoInserido";
-    }
+    
 }
 
 if (isset($_POST['login'])) {
