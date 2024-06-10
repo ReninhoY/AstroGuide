@@ -36,6 +36,8 @@ if (isset($_POST['cadastro'])) {
         $verificarInjection->bind_param("s", $email);
         $verificarInjection->execute();
         $resultado = $verificarInjection->get_result();
+        echo "$resultado";
+        echo "$resultado->num_rows";
         if ($resultado->num_rows > 1) {
             echo "email duplicado";
         } else {
