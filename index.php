@@ -36,9 +36,8 @@ if (isset($_POST['cadastro'])) {
         $verificarInjection->bind_param("s", $email);
         $verificarInjection->execute();
         $resultado = $verificarInjection->get_result();
-        echo "$resultado";
-        echo "$resultado->num_rows";
-        if ($resultado->num_rows > 1) {
+     
+        if ($resultado->num_rows >= 1) {
             echo "email duplicado";
         } else {
             $sql = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Dt_Cadastro,Ft_Perfil,Total_Pontuacao,Id_Astro) VALUES ('$nome','$email','$senha','$dataNasc','$dataAtual','$imgPerfil',0,1)";
