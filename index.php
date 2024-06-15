@@ -1,26 +1,31 @@
 <?php
+
+// Exibir erros
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Variáveis de acesso
 $host = "roundhouse.proxy.rlwy.net";
 $user = "root";
 $pass = "lYsmqQEDuzaIiBMdOSFOniKtKzSpIIHd";
 $bd = "railway";
 $porta = "58673";
+
+// Executar conexão
 $conectar = @mysqli_connect($host,$user,$pass,$bd,$porta);
 
+// Verificar se a conexão foi bem sucedida
 if (!$conectar) {
     die ("erro ".mysqli_connect_error());
 }
-    /*
-else {
-    echo "FOI";
-}
-*/
 
+// Tratando requisição de cadastro
 if (isset($_POST['cadastro'])) {
+    // Armazenando os dados contidos na requisição
     $parametros = $_POST['cadastro'];
+
+    // Dividindo os valores em variáveis diferentes
     $parametrosDivididos = explode("#|#", $parametros);
     $nome = $parametrosDivididos[0];
     $email = $parametrosDivididos[1];
@@ -29,25 +34,41 @@ if (isset($_POST['cadastro'])) {
     $dataAtual = $parametrosDivididos[4];
     $imgPerfil = $parametrosDivididos[5];
 
+    // Verificar se o email inserido já existe na base de dados
     $sqlVerificarDuplicacaoEmail = "SELECT * FROM Usuario WHERE Email_Responsavel = ?";
+    
+    // Previnindo a variável de consulta contra SQL Injection
     $verificarInjection = $conectar->prepare($sqlVerificarDuplicacaoEmail);
     
     if ($verificarInjection) {
+        // Substituir a interrogação pelo email inserido
         $verificarInjection->bind_param("s", $email);
+        // Executar a consulta
         $verificarInjection->execute();
-        $resultado = $verificarInjection->get_result();
+        $resultadoEmail = $verificarInjection->get_result();
      
-        if ($resultado->num_rows >= 1) {
+        // Caso haja mais de um registro com o mesmo email
+        if ($resultadoEmail->num_rows >= 1) {
             echo "email duplicado";
-        } else {
+        }
+        else {
             $sql = "INSERT INTO Usuario(Nome_Usuario,Email_Responsavel,Senha,Dt_Nascimento,Dt_Cadastro,Ft_Perfil,Total_Pontuacao,Id_Astro) VALUES ('$nome','$email','$senha','$dataNasc','$dataAtual','$imgPerfil',0,1)";
-            $query = mysqli_query($conectar,$sql);
-            if ($query) {
-                echo "inserido";
+            $verificarInjection = $conectar->prepare($sql);
+
+            if ($verificarInjection) {
+                $verificarInjection->execute();
+                $resultadoCadastro = $verificarInjection->get_result();
+
+                if ($resultadoCadastro) {
+                    echo "inserido";
+                }
+                else {
+                    echo "naoInserido";
+                }
+                $verificarInjection->close();
+
             }
-            else {
-                echo "naoInserido";
-            }
+
         }
         $verificarInjection->close();
     } else {
@@ -77,6 +98,22 @@ if (isset($_POST['login'])) {
     } else {
         echo "erro para verificar injecao";
     }
+}
+
+if (isset($_POST['verificarExistenciaEmail'])) {
+    $email = $_POST['verificarExistenciaEmail'];
+    $sql = "SELECT * FROM Usuario WHERE Email_Responsavel = ?";
+    $verificarInjection = $conectar->prepare($sql);
+    if ($verificarInjection) {
+        $verificarInjection->bind_param("s", $email);
+        $verificarInjection->execute();
+        $resultado = $verificarInjection->get_result();
+        if ($resultado->num_rows > 0) {
+            echo "existe";
+        } else {
+            echo "inexistente";
+        }
+}
 }
     
 /*
