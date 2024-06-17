@@ -77,20 +77,24 @@ if (isset($_POST['cadastro'])) {
     
 }
 
+
 if (isset($_POST['login'])) {
     $parametros = $_POST['login'];
     $parametrosDivididos = explode("#|#", $parametros);
     $email = $parametrosDivididos[0];
     $senha = $parametrosDivididos[1];
 
-    $sql = "SELECT * FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
+    $sql = "SELECT Nome_Usuario FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
     $verificarInjection = $conectar->prepare($sql);
     if ($verificarInjection) {
         $verificarInjection->bind_param("ss", $email, $senha);
         $verificarInjection->execute();
         $resultado = $verificarInjection->get_result();
         if ($resultado->num_rows > 0) {
-            echo "logado";
+            $linha = $resultado->fetch_assoc();
+            $nomeUsuario = $linha['Nome_Usuario'];
+            $imgUsuario = $linha['Ft_Perfil'];
+            echo "logado####$nomeUsuario####$imgUsuario";
         } else {
             echo "senha invalida";
         }
@@ -99,6 +103,7 @@ if (isset($_POST['login'])) {
         echo "erro para verificar injecao";
     }
 }
+
 
 if (isset($_POST['verificarExistenciaEmail'])) {
     $email = $_POST['verificarExistenciaEmail'];
