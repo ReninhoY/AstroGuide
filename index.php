@@ -6,11 +6,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Importações necessárias para a validação de email
-/*
+
 require_once '../../PHPMailer-master/src/PHPMailer.php';
 require_once '../../PHPMailer-master/src/SMTP.php';
 require_once '../../PHPMailer-master/src/Exception.php';
-*/
+
 // Variáveis de acesso
 $host = "roundhouse.proxy.rlwy.net";
 $user = "root";
@@ -151,8 +151,33 @@ if (isset($_POST['alterarSenha'])) {
     }
 }
 
+function enviarEmailBoasVindas($nickname, $email) {
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = 587; // Porta SMTP
+    $mail->SMTPAuth = true;
+    $mail->Username = 'astroguidegroup@gmail.com';
+    $mail->Password = 'farkppzhndyknioc';
+    $mail->setFrom('astroguidegroup@gmail.com', 'AstroGuide');
+    $mail->addAddress($email, $nickname);
+    $mail->Subject = 'Bem-vindo ao AstroGuide';
+
+    // Corpo do e-mail
+    $mail->isHTML(true);
+    $mail->Body = "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style> <header> <h1>Bem vindo ao AstroGuide!</h1> </header> <main> <h2>Seu código de verificação é:<h2> <p><b>4354354</b></p> </main>";
+
+    if (!$mail->send()) {
+        echo 'Erro ao enviar o e-mail: ' . $mail->ErrorInfo;
+    }
+}
+
 if (isset($_POST['verificarEmail']) {
-    
+    $parametros = $_POST['verificarEmail'];
+    $parametrosDivididos = explode("#|#", $parametros);
+    $nomeUsuario = $parametrosDivididos[0];
+    $email = $parametrosDivididos[1];
+    enviarEmailBoasVindas($nomeUsuario,$email);
 }
     
 /*
