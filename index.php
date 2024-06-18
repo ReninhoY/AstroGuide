@@ -137,7 +137,7 @@ if (isset($_POST['alterarSenha'])) {
             echo "alterado";
         }
         else {
-            echo "inalterado";
+            echo "Erro na execução da query: " . $verificarInjection->error;
         }
         $verificarInjection->close();
 
