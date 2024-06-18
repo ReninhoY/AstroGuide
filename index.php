@@ -130,16 +130,17 @@ if (isset($_POST['alterarSenha'])) {
     $verificarInjection = $conectar->prepare($sql);
     if ($verificarInjection) {
         $verificarInjection->bind_param("ss",$senha,$email);
-        $verificarInjection->execute();
-        $resultadoAlteracao = $verificarInjection->get_result();
-
-        if ($resultadoAlteracao) {
-            echo "alterado";
+        
+        if ($verificarInjection->execute()) {
+            if ($verificarInjection->affected_rows > 0) {
+                echo "alterado";
+            }
+            else {
+                echo "inalterado";
+            }
         }
-        else {
-            echo "bd email $email e senha $senha";
-        }
-        $verificarInjection->close();
+     
+    $verificarInjection->close();
 
     }
 }
