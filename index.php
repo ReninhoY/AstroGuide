@@ -128,8 +128,8 @@ if (isset($_POST['alterarSenha'])) {
     $senha = $parametrosDivididos[1];
     $sql = "UPDATE Usuario SET Senha = ? WHERE Email_Responsavel = ?";
     $verificarInjection = $conectar->prepare($sql);
-
     if ($verificarInjection) {
+        $verificarInjection->bind_param("ss",$senha,$email);
         $verificarInjection->execute();
         $resultadoAlteracao = $verificarInjection->get_result();
 
