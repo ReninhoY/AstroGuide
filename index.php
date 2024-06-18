@@ -173,7 +173,7 @@ function enviarEmailBoasVindas($nickname,$email,$n1,$n2,$n3,$n4) {
     }
 }
 
-if (isset($_POST['verificarEmail']) {
+if (isset($_POST['verificarEmail'])) {
     $parametros = $_POST['verificarEmail'];
     $parametrosDivididos = explode("#|#", $parametros);
     $nomeUsuario = $parametrosDivididos[0];
