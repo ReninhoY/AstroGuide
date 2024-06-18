@@ -84,7 +84,7 @@ if (isset($_POST['login'])) {
     $email = $parametrosDivididos[0];
     $senha = $parametrosDivididos[1];
 
-    $sql = "SELECT Nome_Usuario FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
+    $sql = "SELECT * FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
     $verificarInjection = $conectar->prepare($sql);
     if ($verificarInjection) {
         $verificarInjection->bind_param("ss", $email, $senha);
