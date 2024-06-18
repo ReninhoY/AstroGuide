@@ -153,20 +153,26 @@ if (isset($_POST['alterarSenha'])) {
 }
 
 function enviarEmailBoasVindas($nickname,$email,$n1,$n2,$n3,$n4) {
-    $mail = new PHPMailer();
+     $mail = new PHPMailer();
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
-    $mail->Port = 587; // Porta SMTP
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
     $mail->SMTPAuth = true;
-    $mail->Username = 'astroguidegroup@gmail.com';
-    $mail->Password = 'farkppzhndyknioc';
+    $mail->Username = 'astroguidegroup@gmail.com'; 
+    $mail->Password = 'farkppzhndyknioc'; 
     $mail->setFrom('astroguidegroup@gmail.com', 'AstroGuide');
     $mail->addAddress($email, $nickname);
     $mail->Subject = 'Bem-vindo ao AstroGuide';
 
     // Corpo do e-mail
     $mail->isHTML(true);
-    $mail->Body = "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style> <header> <h1>Bem vindo ao AstroGuide!</h1> </header> <main> <h2>Seu código de verificação é:<h2> <p><b>$$n1 $n2 $n3 $n4</b></p> </main>";
+    $mail->Body = "<html><body>";
+    $mail->Body .= "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style>";
+    $mail->Body .= "<header><h1>Bem vindo ao AstroGuide!</h1></header>";
+    $mail->Body .= "<main><h2>Seu código de verificação é:</h2>";
+    $mail->Body .= "<p><b>$n1 $n2 $n3 $n4</b></p>";
+    $mail->Body .= "</main></body></html>";
 
     if (!$mail->send()) {
         echo 'Erro ao enviar o e-mail: ' . $mail->ErrorInfo;
