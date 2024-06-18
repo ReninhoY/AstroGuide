@@ -6,10 +6,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Importações necessárias para a validação de email
-
 require_once '../../PHPMailer-master/src/PHPMailer.php';
 require_once '../../PHPMailer-master/src/SMTP.php';
 require_once '../../PHPMailer-master/src/Exception.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 // Variáveis de acesso
 $host = "roundhouse.proxy.rlwy.net";
@@ -151,7 +152,7 @@ if (isset($_POST['alterarSenha'])) {
     }
 }
 
-function enviarEmailBoasVindas($nickname, $email) {
+function enviarEmailBoasVindas($nickname,$email,$n1,$n2,$n3,$n4) {
     $mail = new PHPMailer();
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
@@ -165,7 +166,7 @@ function enviarEmailBoasVindas($nickname, $email) {
 
     // Corpo do e-mail
     $mail->isHTML(true);
-    $mail->Body = "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style> <header> <h1>Bem vindo ao AstroGuide!</h1> </header> <main> <h2>Seu código de verificação é:<h2> <p><b>4354354</b></p> </main>";
+    $mail->Body = "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style> <header> <h1>Bem vindo ao AstroGuide!</h1> </header> <main> <h2>Seu código de verificação é:<h2> <p><b>$$n1 $n2 $n3 $n4</b></p> </main>";
 
     if (!$mail->send()) {
         echo 'Erro ao enviar o e-mail: ' . $mail->ErrorInfo;
@@ -177,7 +178,11 @@ if (isset($_POST['verificarEmail']) {
     $parametrosDivididos = explode("#|#", $parametros);
     $nomeUsuario = $parametrosDivididos[0];
     $email = $parametrosDivididos[1];
-    enviarEmailBoasVindas($nomeUsuario,$email);
+    $n1 = $parametrosDivididos[2];
+    $n2 = $parametrosDivididos[3];
+    $n3 = $parametrosDivididos[4];
+    $n4 = $parametrosDivididos[5];
+    enviarEmailBoasVindas($nomeUsuario,$email,$n1,$n2,$n3,$n4);
 }
     
 /*
