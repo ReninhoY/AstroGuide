@@ -84,7 +84,7 @@ if (isset($_POST['login'])) {
     $email = $parametrosDivididos[0];
     $senha = $parametrosDivididos[1];
 
-    $sql = "SELECT * FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
+    $sql = "SELECT Nome_Usuario FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
     $verificarInjection = $conectar->prepare($sql);
     if ($verificarInjection) {
         $verificarInjection->bind_param("ss", $email, $senha);
@@ -94,12 +94,7 @@ if (isset($_POST['login'])) {
             $linha = $resultado->fetch_assoc();
             $nomeUsuario = $linha['Nome_Usuario'];
             $imgUsuario = $linha['Ft_Perfil'];
-            $senhaUsuario = $linha['Senha'];
-            $dtNascimentoUsuario = $linha['Dt_Nascimento'];
-            $pontuacaoUsuario = $linha['Total_Pontuacao'];
-            $dtCadastroUsuario = $linha['Dt_Cadastro'];
-            $idAstro = $linha['Id_Astro'];
-            echo "logado####$nomeUsuario####$imgUsuario####$senhaUsuario####$dtNascimentoUsuario####$pontuacaoUsuario####$dtCadastroUsuario####$idAstro";
+            echo "logado####$nomeUsuario####'$imgUsuario'";
         } else {
             echo "senha invalida";
         }
@@ -124,6 +119,29 @@ if (isset($_POST['verificarExistenciaEmail'])) {
             echo "inexistente";
         }
 }
+}
+
+if (isset($_POST['alterarSenha'])) {
+    $parametros = $_POST['alterarSenha'];
+    $parametrosDivididos = explode("#|#", $parametros);
+    $email = $parametrosDivididos[0];
+    $senha = $parametrosDivididos[1];
+    $sql = "UPDATE Usuario SET Senha = ? WHERE Email_Responsavel = ?";
+    $verificarInjection = $conectar->prepare($sql);
+
+    if ($verificarInjection) {
+        $verificarInjection->execute();
+        $resultadoAlteracao = $verificarInjection->get_result();
+
+        if ($resultadoAlteracao) {
+            echo "alterado";
+        }
+        else {
+            echo "inalterado";
+        }
+        $verificarInjection->close();
+
+    }
 }
     
 /*
