@@ -5,6 +5,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Importações necessárias para a validação de email
+/*
+require_once '../../PHPMailer-master/src/PHPMailer.php';
+require_once '../../PHPMailer-master/src/SMTP.php';
+require_once '../../PHPMailer-master/src/Exception.php';
+*/
 // Variáveis de acesso
 $host = "roundhouse.proxy.rlwy.net";
 $user = "root";
@@ -143,6 +149,10 @@ if (isset($_POST['alterarSenha'])) {
     $verificarInjection->close();
 
     }
+}
+
+if (isset($_POST['verificarEmail']) {
+    
 }
     
 /*
