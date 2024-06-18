@@ -6,9 +6,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Importações necessárias para a validação de email
-require_once '../../PHPMailer-master/src/PHPMailer.php';
-require_once '../../PHPMailer-master/src/SMTP.php';
-require_once '../../PHPMailer-master/src/Exception.php';
+require_once 'PHPMailer-master/src/PHPMailer.php';
+require_once 'PHPMailer-master/src/SMTP.php';
+require_once 'PHPMailer-master/src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
