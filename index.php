@@ -94,7 +94,7 @@ if (isset($_POST['login'])) {
             $linha = $resultado->fetch_assoc();
             $nomeUsuario = $linha['Nome_Usuario'];
             $imgUsuario = $linha['Ft_Perfil'];
-            echo "logado####$nomeUsuario####$imgUsuario";
+            echo "logado####$nomeUsuario####'$imgUsuario'";
         } else {
             echo "senha invalida";
         }
