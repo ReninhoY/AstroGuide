@@ -6,10 +6,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Importações necessárias para a validação de email
-require_once 'PHPMailer-master/src/PHPMailer.php';
-require_once 'PHPMailer-master/src/SMTP.php';
-require_once 'PHPMailer-master/src/Exception.php';
+require_once ('PHPMailer-master/src/PHPMailer.php');
+require_once ('PHPMailer-master/src/SMTP.php');
+require_once ('PHPMailer-master/src/Exception.php');
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // Variáveis de acesso
@@ -153,30 +154,7 @@ if (isset($_POST['alterarSenha'])) {
 }
 
 function enviarEmailBoasVindas($nickname,$email,$n1,$n2,$n3,$n4) {
-     $mail = new PHPMailer();
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->Port = 587;
-    $mail->SMTPSecure = 'tls';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'astroguidegroup@gmail.com'; 
-    $mail->Password = 'farkppzhndyknioc'; 
-    $mail->setFrom('astroguidegroup@gmail.com', 'AstroGuide');
-    $mail->addAddress($email, $nickname);
-    $mail->Subject = 'Bem-vindo ao AstroGuide';
-
-    // Corpo do e-mail
-    $mail->isHTML(true);
-    $mail->Body = "<html><body>";
-    $mail->Body .= "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style>";
-    $mail->Body .= "<header><h1>Bem vindo ao AstroGuide!</h1></header>";
-    $mail->Body .= "<main><h2>Seu código de verificação é:</h2>";
-    $mail->Body .= "<p><b>$n1 $n2 $n3 $n4</b></p>";
-    $mail->Body .= "</main></body></html>";
-
-    if (!$mail->send()) {
-        echo 'Erro ao enviar o e-mail: ' . $mail->ErrorInfo;
-    }
+    
 }
 
 if (isset($_POST['verificarEmail'])) {
@@ -188,7 +166,39 @@ if (isset($_POST['verificarEmail'])) {
     $n2 = $parametrosDivididos[3];
     $n3 = $parametrosDivididos[4];
     $n4 = $parametrosDivididos[5];
-    enviarEmailBoasVindas($nomeUsuario,$email,$n1,$n2,$n3,$n4);
+
+    $mail = new PHPMailer(true);
+    try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'astroguidegroup@gmail.com'; 
+        $mail->Password = 'farkppzhndyknioc'; 
+        $mail->Port = 587;
+    
+        $mail->setFrom('astroguidegroup@gmail.com');
+        $mail->addAddress('renanyfc07@gmail.com');
+    
+        $mail->isHTML(true);
+        $mail->Subject = 'Bem-vindo ao AstroGuide';
+        $mail->Body = "<html><body>";
+        $mail->Body .= "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style>";
+        $mail->Body .= "<header><h1>Bem vindo ao AstroGuide!</h1></header>";
+        $mail->Body .= "<main><h2>Seu código de verificação é:</h2>";
+        $mail->Body .= "<p><b>1 2 3 4</b></p>";
+        $mail->Body .= "</main></body></html>";
+    
+        if ($mail->send()){
+            echo "Enviado com sucesso";
+        }
+        else {
+            echo "Email não enviado";
+        }
+    }
+    catch (Exception $e){
+        echo "Mensagem não enviada: {$mail->ErrorInfo}";
+    }
 }
     
 /*
