@@ -178,7 +178,7 @@ if (isset($_POST['verificarEmail'])) {
         $mail->Port = 587;
     
         $mail->setFrom('astroguidegroup@gmail.com');
-        $mail->addAddress('$email');
+        $mail->addAddress($email);
     
         $mail->isHTML(true);
         $mail->Subject = 'Bem-vindo ao AstroGuide';
