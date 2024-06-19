@@ -162,10 +162,10 @@ if (isset($_POST['verificarEmail'])) {
     $parametrosDivididos = explode("#|#", $parametros);
     $nomeUsuario = $parametrosDivididos[0];
     $email = $parametrosDivididos[1];
-    $n1 = $parametrosDivididos[2];
-    $n2 = $parametrosDivididos[3];
-    $n3 = $parametrosDivididos[4];
-    $n4 = $parametrosDivididos[5];
+    $cod1 = $parametrosDivididos[2];
+    $cod2 = $parametrosDivididos[3];
+    $cod3 = $parametrosDivididos[4];
+    $cod4 = $parametrosDivididos[5];
 
     $mail = new PHPMailer(true);
     try {
@@ -184,9 +184,9 @@ if (isset($_POST['verificarEmail'])) {
         $mail->Subject = 'Bem-vindo ao AstroGuide';
         $mail->Body = "<html><body>";
         $mail->Body .= "<style> * { padding: 0; margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; } header { width: 100%; height: 30vw; background-color: #1f1f1f; color: #fff; display: flex; justify-content: center; align-items: center; } h2,b,p { color: #000; text-align: center; font-size: 2em; } body { display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 5vw; } </style>";
-        $mail->Body .= "<header><h1>Bem vindo ao AstroGuide!</h1></header>";
+        $mail->Body .= "<header><h1>$nomeUsuario, bem vindo ao AstroGuide!</h1></header>";
         $mail->Body .= "<main><h2>Seu código de verificação é:</h2>";
-        $mail->Body .= "<p><b>1 2 3 4</b></p>";
+        $mail->Body .= "<p><b>$cod1 $cod2 $cod3 $cod4</b></p>";
         $mail->Body .= "</main></body></html>";
     
         if ($mail->send()){
