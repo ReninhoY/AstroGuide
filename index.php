@@ -92,7 +92,7 @@ if (isset($_POST['login'])) {
     $email = $parametrosDivididos[0];
     $senha = $parametrosDivididos[1];
 
-    $sql = "SELECT Nome_Usuario FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
+    $sql = "SELECT * FROM Usuario WHERE Email_Responsavel = ? AND Senha = ?";
     $verificarInjection = $conectar->prepare($sql);
     if ($verificarInjection) {
         $verificarInjection->bind_param("ss", $email, $senha);
@@ -102,7 +102,12 @@ if (isset($_POST['login'])) {
             $linha = $resultado->fetch_assoc();
             $nomeUsuario = $linha['Nome_Usuario'];
             $imgUsuario = $linha['Ft_Perfil'];
-            echo "logado####$nomeUsuario####'$imgUsuario'";
+            $senha = $linha['Senha'];
+            $dtNascimento = $linha['Dt_Nascimento'];
+            $pontuacao = $linha['Total_Pontuacao'];
+            $dtCadastro = $linha['Dt_Cadastro'];
+            $astroAtual = $linha['Id_Astro'];
+            echo "logado####$nomeUsuario####$imgUsuario####$senha####$dtNascimento####$pontuacao####$dtCadastro####$astroAtual";
         } else {
             echo "senha invalida";
         }
